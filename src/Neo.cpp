@@ -52,52 +52,34 @@ Neo::Neo(uint8_t din, uint8_t cs, uint8_t clk, uint8_t displayCount) {
   // pinMode(_clk, OUTPUT);
   SPI.setBitOrder(MSBFIRST);
   SPI.begin();
-
-  // displayTest();  
-  // initDisplay();
 }
 
 void Neo::displayTest() {
-  // for (uint8_t i = 0; i < 4; i++) {
-  //   transferToAddr(MAX7219_REG_DISPLAYTEST, 0x01);
-  //   delay(10);
-  // }
-  transferToAddr(MAX7219_REG_DISPLAYTEST, 0x01);
+  transferToAll(MAX7219_REG_DISPLAYTEST, 0x01);
     delay(10);
-  transferToAddr(MAX7219_REG_DISPLAYTEST, 0x00);  
+  transferToAll(MAX7219_REG_DISPLAYTEST, 0x00);  
 }
 
 void Neo::setBrightness(uint8_t value) {
-  transferToAddr(MAX7219_REG_INTENSITY, value);
+  transferToAll(MAX7219_REG_INTENSITY, value);
 }
 
 void Neo::initDisplay() {
   
   // Enable mode BCD
-  transferToAddr(MAX7219_REG_DECODEMODE, 0x00);
+  transferToAll(MAX7219_REG_DECODEMODE, 0x00);
   
   // Use lowest intensity
-  transferToAddr(MAX7219_REG_INTENSITY, 0x00);
+  transferToAll(MAX7219_REG_INTENSITY, 0x00);
   
   // Only scanlimit: 8LED
-  transferToAddr(MAX7219_REG_SCANLIMIT, 0x07);
+  transferToAll(MAX7219_REG_SCANLIMIT, 0x07);
   
   // power-down mode:0, normal mode: 1
-  transferToAddr(MAX7219_REG_SHUTDOWN, 0x01);
+  transferToAll(MAX7219_REG_SHUTDOWN, 0x01);
 }
 
-void Neo::transfer(uint8_t value) {
-  // Ensure LOAD/CS is LOW
-  digitalWrite(_cs, LOW);
-
-  // Send the value
-  SPI.transfer(value);
-
-  // Tell chip to load in data
-  digitalWrite(_cs, HIGH);
-}
-
-void Neo::transferToAddr(uint8_t address, uint8_t value) {
+void Neo::transfer(uint8_t address, uint8_t value) {
   // Ensure LOAD/CS is LOW
   digitalWrite(_cs, LOW);
 
@@ -109,6 +91,20 @@ void Neo::transferToAddr(uint8_t address, uint8_t value) {
 
   // Tell chip to load in data
   digitalWrite(_cs, HIGH);
+}
+
+void Neo::transferToDisp(uint8_t disp, uint8_t address, uint8_t value) {
+  digitalWrite(_cs, LOW);    
+  for (uint8_t i =0; i < _display_count; i++) {
+    if (disp == i) {
+      SPI.transfer(address);
+      SPI.transfer(value);
+    } else {
+      SPI.transfer(MAX7219_REG_NOOP);
+      SPI.transfer(0x00);
+    }
+  }
+  digitalWrite(_cs, HIGH); 
 }
 
 void Neo::transferToAll(uint8_t address, uint8_t value) {
@@ -131,38 +127,40 @@ void Neo::demo() {
 }
 
 void Neo::test() {
-  transferToAll(0, 0x01);
-  delay(100);
-  transferToAll(1, 0x02);
-  delay(100);
-  transferToAll(2, 0x04);
-  delay(100);
-  transferToAll(3, 0x08);
-  // transferToAll(MAX7219_REG_DISPLAYTEST, 0x01);
+  // transferToAll(0, 0x01);
   // delay(100);
-  // transferToAll(MAX7219_REG_DISPLAYTEST, 0x00);
+  // transferToAll(1, 0x02);
   // delay(100);
-  // clearDisplay();
+  // transferToAll(2, 0x04);
+  // delay(100);
+  // transferToAll(3, 0x08);
+  fillDisplay();
+  delay(100);
+  clearDisplay();
+  delay(100);
+  transferToDisp(0, 1, 0x01);
+  delay(100);
+  transferToDisp(1, 2, 0x02);
+  delay(100);
+  transferToDisp(2, 3, 0x04);
+  delay(100);
+  transferToDisp(3, 4, 0x08);
 }
 
 void Neo::printChar(uint8_t ch) {
   for (int i=1; i<9; i++) {
-    transferToAddr(i, disp1[ch][i-1]);
+    transfer(i, disp1[ch][i-1]);
   }
 }
 
 void Neo::clearDisplay() {
-  for (uint8_t i = 0; i < _display_count; i++) {
-    for (uint8_t j = 1; j < 9; j++) {
-      transferToAddr(j, 0x00);
-    }
+  for (uint8_t j = 1; j < 9; j++) {
+    transferToAll(j, 0x00);
   }
 }
 
 void Neo::fillDisplay() {
-  for (uint8_t i = 0; i < _display_count; i++) {
-    for (uint8_t j = 1; j < 9; j++) {
-      transferToAddr(j, 0xff);
-    }
+  for (uint8_t j = 1; j < 9; j++) {
+    transferToAll(j, 0xff);
   }
 }

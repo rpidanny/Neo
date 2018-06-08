@@ -15,9 +15,9 @@ class Neo {
   public:
     Neo(uint8_t din, uint8_t cs, uint8_t clk, uint8_t displayCount);
     
-    void transfer(uint8_t value);
-    void transferToAddr(uint8_t address, uint8_t value);
+    void transfer(uint8_t address, uint8_t value);
     void transferToAll(uint8_t address, uint8_t value);
+    void transferToDisp(uint8_t disp, uint8_t address, uint8_t value);
     
     void displayTest();
     void initDisplay();
