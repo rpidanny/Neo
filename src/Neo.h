@@ -107,23 +107,24 @@ const static byte invaderB[2][8] = {
 class Neo {
   public:
     Neo(uint8_t din, uint8_t cs, uint8_t clk, uint8_t displayCount);
-    
-    void transfer(uint8_t address, uint8_t value);
-    void transferToAll(uint8_t address, uint8_t value);
-    void transferToDisp(uint8_t disp, uint8_t address, uint8_t value);
-    
-    void displayTest();
-    void initDisplay();
+        
+    void init();
     void setBrightness(uint8_t value);
+    void displayTest();
     void printChar(uint8_t disp, uint8_t ch);
     void renderDisplay(uint8_t disp, byte frame[8]);
     void clearDisplay();
     void fillDisplay();
+    
     void demo();
     void demoInvader();
     void test();
 
-  private:  
+  private:
+    void transfer(uint8_t address, uint8_t value);
+    void transferToAll(uint8_t address, uint8_t value);
+    void transferToDisp(uint8_t disp, uint8_t address, uint8_t value);
+  
     uint8_t _display_count;
     uint8_t _din;
     uint8_t _cs;

@@ -26,7 +26,7 @@ void Neo::setBrightness(uint8_t value) {
   transferToAll(MAX7219_REG_INTENSITY, value);
 }
 
-void Neo::initDisplay() {
+void Neo::init() {
   
   // Enable mode BCD
   transferToAll(MAX7219_REG_DECODEMODE, 0x00);
