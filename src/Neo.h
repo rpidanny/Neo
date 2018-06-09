@@ -112,10 +112,13 @@ class Neo {
     void setBrightness(uint8_t value);
     void displayTest();
     void printChar(uint8_t disp, uint8_t ch);
+    void render(byte frame[8]);
     void renderDisplay(uint8_t disp, byte frame[8]);
     void clearDisplay();
     void fillDisplay();
-    
+    void shiftLeft();
+    void reload();
+
     void demo();
     void demoInvader();
     void test();
@@ -129,6 +132,9 @@ class Neo {
     uint8_t _din;
     uint8_t _cs;
     uint8_t _clk;
+    uint8_t DP;
+    uint8_t RP;
+    byte buffer[100];
 };
 
 #endif

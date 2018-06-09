@@ -14,6 +14,11 @@ Neo::Neo(uint8_t din, uint8_t cs, uint8_t clk, uint8_t displayCount) {
   // pinMode(_clk, OUTPUT);
   SPI.setBitOrder(MSBFIRST);
   SPI.begin();
+
+  DP = 0;
+  RP = 0;
+  for (int i=0; i<80; i++)
+		buffer[i] = 0;
 }
 
 void Neo::displayTest() {
@@ -122,6 +127,7 @@ void Neo::test() {
 void Neo::renderDisplay(uint8_t disp, unsigned char frame[8]) {
   for (uint8_t i = 1; i < 9; i++) {
     transferToDisp(disp, i, frame[i - 1]);
+    buffer[((_display_count - disp - 1) * 8) + i - 1] = frame[i - 1];
   }
 }
 
@@ -135,10 +141,44 @@ void Neo::clearDisplay() {
   for (uint8_t j = 1; j < 9; j++) {
     transferToAll(j, 0x00);
   }
+  for (int i=0; i<80; i++)
+		buffer[i] = 0;
 }
 
 void Neo::fillDisplay() {
   for (uint8_t j = 1; j < 9; j++) {
     transferToAll(j, 0xff);
   }
+}
+
+void Neo::shiftLeft() {
+  for (uint8_t i = 0; i < 80; i++) {
+    byte old = buffer[i];
+    if ( i < 73)
+      buffer[i] = (old >> 1) | ( buffer[i + 8] * 0x80);
+    else
+      buffer[i] = (old >> 1) & 0x7f;
+  }
+  reload();
+}
+
+void Neo::reload() {
+  for (uint8_t disp =0; disp < _display_count; disp++) {
+    for (uint8_t r = 1; r < 9; r++) {
+      transferToDisp(disp, r, buffer[((_display_count - disp - 1) * 8) + r - 1]);
+    }
+  }
+  if (RP == 7) {
+    RP = 0;
+    DP--;
+  } else {
+    RP++;
+  }
+}
+
+void Neo::render(byte frame[8]) {
+  for (uint8_t i = 1; i < 9; i++) {
+    buffer[((_display_count - DP - 1) * 8) + i - 1] = frame[i - 1];
+  }
+  DP++;
 }
