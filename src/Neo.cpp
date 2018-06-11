@@ -180,7 +180,7 @@ void Neo::reload() {
 void Neo::render(byte frame[8]) {
   for (uint8_t i = 0; i < 8; i++) {
     // buffer[((_display_count - DP - 1) * 8) + i] = frame[i];
-    buffer[((_display_count - DP - 1) * 8) + i] = frame[i];
+    buffer[((_display_count - DP) * 8) + i] = frame[i];
   }
   DP++;
 }
