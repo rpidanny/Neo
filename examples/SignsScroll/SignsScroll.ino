@@ -6,7 +6,6 @@
 Neo disp(0, 7, 0, 4);
 
 byte frame[8];
-const uint8_t SIGNS_COUNT = sizeof(SIGN)/8;
 
 void setup() {
   delay(100);
