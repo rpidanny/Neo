@@ -1,5 +1,5 @@
 #include <Neo.h>
-#include <Neo_font_minimal.h>
+#include <Neo_font_rotated.h>
 
 #define SPEED 20
 
@@ -30,7 +30,15 @@ void printChar(char c, uint8_t speed) {
   if (c < 32) return;
   c -= 32;
   memcpy_P(frame, CH + 8 * c, 8);
-  disp.render(frame);
+  // rotate frame 90 degrees
+  byte temp[8];
+  for (byte r = 0; r < 8; r++) {
+    byte b = 0;
+    for (byte i = 0; i < 8; i++)
+      b |= bitRead(frame[i], r) << (7 - i);
+    temp[r] = b;
+  }
+  disp.render(temp);
 
   for (uint8_t i = 0; i < 8; i++) {
     disp.shiftLeft();

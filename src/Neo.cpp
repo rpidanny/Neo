@@ -17,7 +17,7 @@ Neo::Neo(uint8_t din, uint8_t cs, uint8_t clk, uint8_t displayCount) {
 
   DP = 0;
   RP = 0;
-  for (int i=0; i<80; i++)
+  for (int i=0; i < 100; i++)
 		buffer[i] = 0;
 }
 
@@ -152,12 +152,12 @@ void Neo::fillDisplay() {
 }
 
 void Neo::shiftLeft() {
-  for (uint8_t i = 0; i < 80; i++) {
+  for (uint8_t i = 0; i < 100; i++) {
     byte old = buffer[i];
-    if ( i < 73)
-      buffer[i] = (old >> 1) | ( buffer[i + 8] * 0x80);
+    if ( i < 92)
+      buffer[i] = (old << 1) | ( buffer[i + 8] >> 7);
     else
-      buffer[i] = (old >> 1) & 0x7f;
+      buffer[i] = (old << 1) & 0xfe;
   }
   reload();
 }
@@ -165,7 +165,8 @@ void Neo::shiftLeft() {
 void Neo::reload() {
   for (uint8_t disp =0; disp < _display_count; disp++) {
     for (uint8_t r = 1; r < 9; r++) {
-      transferToDisp(disp, r, buffer[((_display_count - disp - 1) * 8) + r - 1]);
+      // transferToDisp(disp, r, buffer[((_display_count - disp - 1) * 8) + r - 1]);
+      transferToDisp(disp, r, buffer[(disp * 8) + r - 1]);
     }
   }
   if (RP == 7) {
@@ -177,8 +178,9 @@ void Neo::reload() {
 }
 
 void Neo::render(byte frame[8]) {
-  for (uint8_t i = 1; i < 9; i++) {
-    buffer[((_display_count - DP - 1) * 8) + i - 1] = frame[i - 1];
+  for (uint8_t i = 0; i < 8; i++) {
+    // buffer[((_display_count - DP - 1) * 8) + i] = frame[i];
+    buffer[((_display_count - DP - 1) * 8) + i] = frame[i];
   }
   DP++;
 }
