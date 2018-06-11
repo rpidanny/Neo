@@ -86,19 +86,6 @@ void Neo::transferToAll(uint8_t address, uint8_t value) {
   digitalWrite(_cs, HIGH);    
 }
 
-void Neo::renderDisplay(uint8_t disp, unsigned char frame[8]) {
-  for (uint8_t i = 1; i < 9; i++) {
-    transferToDisp(disp, i, frame[i - 1]);
-    // buffer[((_display_count - disp - 1) * 8) + i - 1] = frame[i - 1];
-  }
-}
-
-void Neo::printChar(uint8_t disp, uint8_t ch) {
-  for (int i=1; i<9; i++) {
-    transferToDisp(disp, i, disp1[ch][i-1]);
-  }
-}
-
 void Neo::clearDisplay() {
   for (uint8_t j = 1; j < 9; j++) {
     transferToAll(j, 0x00);
@@ -110,6 +97,21 @@ void Neo::clearDisplay() {
 void Neo::fillDisplay() {
   for (uint8_t j = 1; j < 9; j++) {
     transferToAll(j, 0xff);
+  }
+}
+
+void Neo::append(byte frame[8]) {
+  for (uint8_t i = 0; i < 8; i++) {
+    // buffer[((_display_count - DP - 1) * 8) + i] = frame[i];
+    buffer[((_display_count - DP) * 8) + i] = frame[i];
+  }
+  DP++;
+}
+
+void Neo::renderDisplay(uint8_t disp, unsigned char frame[8]) {
+  for (uint8_t i = 1; i < 9; i++) {
+    transferToDisp(disp, i, frame[i - 1]);
+    // buffer[((_display_count - disp - 1) * 8) + i - 1] = frame[i - 1];
   }
 }
 
@@ -137,12 +139,4 @@ void Neo::reload() {
   } else {
     RP++;
   }
-}
-
-void Neo::render(byte frame[8]) {
-  for (uint8_t i = 0; i < 8; i++) {
-    // buffer[((_display_count - DP - 1) * 8) + i] = frame[i];
-    buffer[((_display_count - DP) * 8) + i] = frame[i];
-  }
-  DP++;
 }

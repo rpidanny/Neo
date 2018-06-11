@@ -31,7 +31,7 @@ void printChar(char c, uint8_t speed) {
     temp[r] = b;
   }
 
-  disp.render(temp);
+  disp.append(temp);
 
   for (uint8_t i = 0; i < 8; i++) {
     disp.shiftLeft();
