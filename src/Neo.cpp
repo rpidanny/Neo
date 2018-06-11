@@ -9,9 +9,11 @@ Neo::Neo(uint8_t din, uint8_t cs, uint8_t clk, uint8_t displayCount) {
   _clk = clk;
   _display_count = displayCount;
 
-  // pinMode(_din, OUTPUT);
+  pinMode(_din, OUTPUT);
   pinMode(_cs, OUTPUT);
-  // pinMode(_clk, OUTPUT);
+  pinMode(_clk, OUTPUT);
+  
+  // TODO: implement shiftOut
   SPI.setBitOrder(MSBFIRST);
   SPI.begin();
 
@@ -49,6 +51,7 @@ void Neo::init() {
   transferToAll(MAX7219_REG_SHUTDOWN, 0x01);
 }
 
+// TODO: implement shiftOut
 void Neo::transfer(uint8_t address, uint8_t value) {
   // Ensure LOAD/CS is LOW
   digitalWrite(_cs, LOW);
@@ -63,6 +66,7 @@ void Neo::transfer(uint8_t address, uint8_t value) {
   digitalWrite(_cs, HIGH);
 }
 
+// TODO: implement shiftOut
 void Neo::transferToDisp(uint8_t disp, uint8_t address, uint8_t value) {
   digitalWrite(_cs, LOW);    
   for (uint8_t i =0; i < _display_count; i++) {
@@ -77,6 +81,7 @@ void Neo::transferToDisp(uint8_t disp, uint8_t address, uint8_t value) {
   digitalWrite(_cs, HIGH); 
 }
 
+// TODO: implement shiftOut
 void Neo::transferToAll(uint8_t address, uint8_t value) {
   digitalWrite(_cs, LOW);    
   for (uint8_t i =0; i < _display_count; i++) {
