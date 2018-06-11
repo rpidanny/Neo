@@ -23,12 +23,15 @@ Neo::Neo(uint8_t din, uint8_t cs, uint8_t clk, uint8_t displayCount) {
 
 void Neo::displayTest() {
   transferToAll(MAX7219_REG_DISPLAYTEST, 0x01);
-    delay(10);
+    delay(100);
   transferToAll(MAX7219_REG_DISPLAYTEST, 0x00);  
 }
 
 void Neo::setBrightness(uint8_t value) {
-  transferToAll(MAX7219_REG_INTENSITY, value);
+  if (value < 16)
+    transferToAll(MAX7219_REG_INTENSITY, value);
+  else
+    transferToAll(MAX7219_REG_INTENSITY, 0x0f);
 }
 
 void Neo::init() {
@@ -83,51 +86,10 @@ void Neo::transferToAll(uint8_t address, uint8_t value) {
   digitalWrite(_cs, HIGH);    
 }
 
-void Neo::demo() {
-  for (int i = 0; i < 38 - _display_count ; i++)
-  {
-    for(int j = 0; j < _display_count; j++) {
-      printChar(j, j+ i);
-    }
-    delay(100);
-  }
-}
-
-void Neo::demoInvader() {
-  for (int i = 0; i < 2 ; i++)
-  {
-    renderDisplay(0, invaderA[i]);
-    renderDisplay(2, invaderB[i]);
-    delay(100);
-  }
-}
-
-void Neo::test() {
-  // fillDisplay();
-  // delay(100);
-  // clearDisplay();
-  // delay(100);
-  // transferToDisp(0, 1, 0x01);
-  // delay(100);
-  // transferToDisp(1, 2, 0x02);
-  // delay(100);
-  // transferToDisp(2, 3, 0x04);
-  // delay(100);
-  // transferToDisp(3, 4, 0x08);
-  printChar(0, 0);
-  delay(100);
-  printChar(1, 1);
-  delay(100);
-  printChar(2, 2);
-  delay(100);
-  printChar(3, 3);
-  delay(100);
-}
-
 void Neo::renderDisplay(uint8_t disp, unsigned char frame[8]) {
   for (uint8_t i = 1; i < 9; i++) {
     transferToDisp(disp, i, frame[i - 1]);
-    buffer[((_display_count - disp - 1) * 8) + i - 1] = frame[i - 1];
+    // buffer[((_display_count - disp - 1) * 8) + i - 1] = frame[i - 1];
   }
 }
 

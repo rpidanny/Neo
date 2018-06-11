@@ -1,5 +1,5 @@
 #include <Neo.h>
-#include <Neo_font_rotated.h>
+#include <Neo_font_minimal.h>
 
 #define SPEED 20
 
@@ -13,23 +13,15 @@ char string2[] = "i <3 Neo";
 void setup() {
   delay(100);
   disp.init();
-  disp.setBrightness(2);
+  disp.setBrightness(1);
   disp.clearDisplay();
-}
-
-void demoFonts() {
-  for (int i = 0; i < 32 ; i++)
-  {
-    memcpy_P(frame, CH + 8 * i, 8);
-    disp.renderDisplay(0, frame);
-    delay(SPEED);
-  }
 }
 
 void printChar(char c, uint8_t speed) {
   if (c < 32) return;
   c -= 32;
   memcpy_P(frame, CH + 8 * c, 8);
+  
   // rotate frame 90 degrees
   byte temp[8];
   for (byte r = 0; r < 8; r++) {
@@ -38,6 +30,7 @@ void printChar(char c, uint8_t speed) {
       b |= bitRead(frame[i], r) << (7 - i);
     temp[r] = b;
   }
+
   disp.render(temp);
 
   for (uint8_t i = 0; i < 8; i++) {
