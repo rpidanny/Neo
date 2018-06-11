@@ -123,10 +123,10 @@ void Neo::shiftLeft() {
     else
       buffer[i] = (old << 1) & 0xfe;
   }
-  reload();
+  render();
 }
 
-void Neo::reload() {
+void Neo::render() {
   for (uint8_t disp =0; disp < _display_count; disp++) {
     for (uint8_t r = 1; r < 9; r++) {
       // transferToDisp(disp, r, buffer[((_display_count - disp - 1) * 8) + r - 1]);

@@ -31,7 +31,7 @@ class Neo {
     void clearDisplay();
     void fillDisplay();
     void shiftLeft();
-    void reload();
+    void render();
 
   private:
     void transfer(uint8_t address, uint8_t value);
