@@ -1,9 +1,8 @@
-#include <avr/pgmspace.h>
-
-#if (ARDUINO >= 100)
-#include <Arduino.h>
+#if (defined(__AVR__))
+  #include <avr/pgmspace.h>
+  #include <WProgram.h>
 #else
-#include <WProgram.h>
+  #include <pgmspace.h>
 #endif
 
 PROGMEM const byte CH[] = {

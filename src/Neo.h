@@ -1,14 +1,6 @@
 #ifndef NEO_H
 #define NEO_H
 
-#include <avr/pgmspace.h>
-
-#if (ARDUINO >= 100)
-#include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
 #include <SPI.h>
 
 #define MAX7219_REG_NOOP        0x00
@@ -46,7 +38,7 @@ class Neo {
     bool _SPI;
     uint8_t DP;
     uint8_t RP;
-    byte buffer[];
+    byte buffer[80];
 };
 
 #endif
