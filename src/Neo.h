@@ -44,7 +44,7 @@ class Neo {
     uint8_t _clk;
     uint8_t DP;
     uint8_t RP;
-    byte buffer[100];
+    byte buffer[];
 };
 
 #endif

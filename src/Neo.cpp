@@ -8,19 +8,6 @@ Neo::Neo(uint8_t din, uint8_t cs, uint8_t clk, uint8_t displayCount) {
   _cs = cs;
   _clk = clk;
   _display_count = displayCount;
-
-  pinMode(_din, OUTPUT);
-  pinMode(_cs, OUTPUT);
-  pinMode(_clk, OUTPUT);
-  
-  // TODO: implement shiftOut
-  SPI.setBitOrder(MSBFIRST);
-  SPI.begin();
-
-  DP = 0;
-  RP = 0;
-  for (int i=0; i < 100; i++)
-		buffer[i] = 0;
 }
 
 void Neo::displayTest() {
@@ -37,6 +24,19 @@ void Neo::setBrightness(uint8_t value) {
 }
 
 void Neo::init() {
+  pinMode(_din, OUTPUT);
+  pinMode(_cs, OUTPUT);
+  pinMode(_clk, OUTPUT);
+  
+  // TODO: implement shiftOut
+  SPI.setBitOrder(MSBFIRST);
+  SPI.begin();
+
+  DP = 0;
+  RP = 0;
+  // initialize buffer to 0x00
+  for (uint8_t i = 0; i < 8 * (_display_count + 1); i++)
+		buffer[i] = 0;
   
   // Enable mode BCD
   transferToAll(MAX7219_REG_DECODEMODE, 0x00);
@@ -95,7 +95,7 @@ void Neo::clearDisplay() {
   for (uint8_t j = 1; j < 9; j++) {
     transferToAll(j, 0x00);
   }
-  for (int i=0; i<80; i++)
+  for (uint8_t i = 0; i < 8 * (_display_count + 1); i++)
 		buffer[i] = 0;
 }
 
@@ -121,9 +121,9 @@ void Neo::renderDisplay(uint8_t disp, unsigned char frame[8]) {
 }
 
 void Neo::shiftLeft() {
-  for (uint8_t i = 0; i < 100; i++) {
+  for (uint8_t i = 0; i < 8 * (_display_count + 1); i++) {
     byte old = buffer[i];
-    if ( i < 92)
+    if ( i < (8 * (_display_count + 1) - 8) )
       buffer[i] = (old << 1) | ( buffer[i + 8] >> 7);
     else
       buffer[i] = (old << 1) & 0xfe;
