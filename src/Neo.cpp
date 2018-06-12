@@ -9,10 +9,6 @@ Neo::Neo(uint8_t din, uint8_t cs, uint8_t clk, uint8_t displayCount) {
   _clk = clk;
   _display_count = displayCount;
   _SPI = (_din | _clk) == 0; 
-  // if ( (_din | _clk) == 0)
-  //   _SPI = true;
-  // else
-  //   _SPI = false;
 }
 
 void Neo::displayTest() {
