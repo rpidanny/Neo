@@ -8,6 +8,11 @@ Neo::Neo(uint8_t din, uint8_t cs, uint8_t clk, uint8_t displayCount) {
   _cs = cs;
   _clk = clk;
   _display_count = displayCount;
+  _SPI = (_din | _clk) == 0; 
+  // if ( (_din | _clk) == 0)
+  //   _SPI = true;
+  // else
+  //   _SPI = false;
 }
 
 void Neo::displayTest() {
@@ -29,8 +34,10 @@ void Neo::init() {
   pinMode(_clk, OUTPUT);
   
   // TODO: implement shiftOut
-  SPI.setBitOrder(MSBFIRST);
-  SPI.begin();
+  if ( _SPI ) {
+    SPI.setBitOrder(MSBFIRST);
+    SPI.begin();
+  }
 
   DP = 0;
   RP = 0;
@@ -51,42 +58,46 @@ void Neo::init() {
   transferToAll(MAX7219_REG_SHUTDOWN, 0x01);
 }
 
-// TODO: implement shiftOut
+void Neo::spiTransfer(uint8_t address, uint8_t value) {
+  if ( _SPI ) {
+    // Send the register address
+    SPI.transfer(address);
+    
+    // Send the value
+    SPI.transfer(value);
+  } else {
+    // Send the register address
+    shiftOut(_din, _clk, MSBFIRST, address);
+    
+    // Send the value
+    shiftOut(_din, _clk, MSBFIRST, value);
+  }
+}
+
 void Neo::transfer(uint8_t address, uint8_t value) {
   // Ensure LOAD/CS is LOW
   digitalWrite(_cs, LOW);
-
-  // Send the register address
-  SPI.transfer(address);
-
-  // Send the value
-  SPI.transfer(value);
-
+  spiTransfer(address, value);
   // Tell chip to load in data
   digitalWrite(_cs, HIGH);
 }
 
-// TODO: implement shiftOut
 void Neo::transferToDisp(uint8_t disp, uint8_t address, uint8_t value) {
   digitalWrite(_cs, LOW);    
   for (uint8_t i =0; i < _display_count; i++) {
     if (disp == i) {
-      SPI.transfer(address);
-      SPI.transfer(value);
+      spiTransfer(address, value);
     } else {
-      SPI.transfer(MAX7219_REG_NOOP);
-      SPI.transfer(0x00);
+      spiTransfer(MAX7219_REG_NOOP, 0x00);
     }
   }
   digitalWrite(_cs, HIGH); 
 }
 
-// TODO: implement shiftOut
 void Neo::transferToAll(uint8_t address, uint8_t value) {
   digitalWrite(_cs, LOW);    
   for (uint8_t i =0; i < _display_count; i++) {
-    SPI.transfer(address);
-    SPI.transfer(value);
+    spiTransfer(address, value);
   }
   digitalWrite(_cs, HIGH);    
 }

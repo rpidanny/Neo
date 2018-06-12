@@ -34,6 +34,7 @@ class Neo {
     void render();
 
   private:
+    void spiTransfer(uint8_t address, uint8_t value);
     void transfer(uint8_t address, uint8_t value);
     void transferToAll(uint8_t address, uint8_t value);
     void transferToDisp(uint8_t disp, uint8_t address, uint8_t value);
@@ -42,6 +43,7 @@ class Neo {
     uint8_t _din;
     uint8_t _cs;
     uint8_t _clk;
+    bool _SPI;
     uint8_t DP;
     uint8_t RP;
     byte buffer[];
