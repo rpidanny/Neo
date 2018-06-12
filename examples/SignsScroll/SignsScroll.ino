@@ -3,7 +3,7 @@
 
 #define SPEED 20
 
-Neo disp(4, 7);
+Neo disp(4, 7); // Chips / LOAD(CS) / DIN / CLK
 
 byte frame[8];
 

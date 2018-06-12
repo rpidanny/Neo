@@ -3,7 +3,7 @@
 
 #define SPEED 100
 
-Neo disp(4, 7);
+Neo disp(4, 7); // Chips / LOAD(CS) / DIN / CLK
 
 byte frame[8];
 const uint8_t SIGNS_COUNT = sizeof(SIGN)/8;

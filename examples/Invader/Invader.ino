@@ -14,7 +14,7 @@ PROGMEM const byte INVADER[] = {
   B00011000,  B00111100,  B01111110,  B11011011,  B11111111,  B00100100,  B01011010,  B01000010
 };
 
-Neo disp(4, 7);
+Neo disp(4, 7); // Chips / LOAD(CS) / DIN / CLK
 
 byte frame[8];
 
