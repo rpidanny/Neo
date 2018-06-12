@@ -3,7 +3,7 @@
 
 #define SPEED 20
 
-Neo disp(0, 7, 0, 4);
+Neo disp(4, 7);
 
 byte frame[8];
 
