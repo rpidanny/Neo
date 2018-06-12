@@ -39,6 +39,7 @@ function generateByteArray() {
   const width = matrix[0].length;
   const height = matrix.length;
   console.log(matrix);
+  // TODO: convert matrix to byteArray
 }
 
 function hasClass(element, className) {
