@@ -13,7 +13,7 @@ Neo::Neo(uint8_t displayCount, uint8_t cs, uint8_t din, uint8_t clk) {
 
 void Neo::displayTest() {
   transferToAll(MAX7219_REG_DISPLAYTEST, 0x01);
-    delay(100);
+  delay(100);
   transferToAll(MAX7219_REG_DISPLAYTEST, 0x00);  
 }
 

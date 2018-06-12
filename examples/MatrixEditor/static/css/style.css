@@ -1,0 +1,94 @@
+
+body {
+	background: #36393e;
+	color: #bfbfbf;
+  text-align: center;
+  font-family: Roboto Mono;
+  font-weight: 400;
+	margin: 0;
+}
+
+.navbar-header {
+  color: #fff;
+  background-color: transparent;
+}
+
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1140px;
+}
+
+.row {
+  position: relative;
+  width: 100%;
+}
+
+.row [class^="col"] {
+  float: left;
+  margin: 0.25rem 2%;
+  min-height: 0.125rem;
+}
+
+.col-1,
+.col-2,
+.col-3,
+.col-4,
+.col-5,
+.col-6,
+.col-7,
+.col-8,
+.col-9,
+.col-10,
+.col-11,
+.col-12 {
+  width: 96%;
+}
+
+/* Navigation bar */
+nav {
+	display: block;
+	padding: 8px 10px;
+	background: #2f3136;
+}
+
+#_grid table {
+  border-collapse: separate;
+  border-spacing: 2px;
+  cursor:crosshair;
+  margin:auto;
+}
+
+#_grid table tr td {
+  background-color: white;
+  padding:10px;
+  border-radius:100%;
+}
+
+#_grid table tr td:hover, #_grid table tr td.on:hover {
+  background-color: #c3c1ff;
+  padding:10px;
+}
+
+#_grid table tr td.on {
+  background-color: #e60909;
+  padding:10px;
+}
+
+/* Custom default button */
+.btn-group {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Custom default button */
+.btn-default,
+.btn-default:hover,
+.btn-default:focus {
+  color: #333;
+  text-shadow: none; /* Prevent inheritence from `body` */
+  background-color: #fff;
+  border: 1px solid #fff;
+}
