@@ -3,6 +3,7 @@
 
 #define SPEED 100
 
+// Ignore DIN, CLK if using internal SPI
 Neo disp(4, 7); // Chips / LOAD(CS) / DIN / CLK
 
 byte frame[8];
