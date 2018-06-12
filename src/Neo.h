@@ -13,7 +13,7 @@
 
 class Neo {
   public:
-    Neo(uint8_t din, uint8_t cs, uint8_t clk, uint8_t displayCount);
+    Neo(uint8_t displayCount, uint8_t cs, uint8_t din = 0, uint8_t clk = 0);
         
     void begin();
     void setBrightness(uint8_t value);

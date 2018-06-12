@@ -3,7 +3,7 @@
 #include <SPI.h>
 
 
-Neo::Neo(uint8_t din, uint8_t cs, uint8_t clk, uint8_t displayCount) {
+Neo::Neo(uint8_t displayCount, uint8_t cs, uint8_t din, uint8_t clk) {
   _din = din;
   _cs = cs;
   _clk = clk;
