@@ -29,7 +29,6 @@ void Neo::begin() {
   pinMode(_cs, OUTPUT);
   pinMode(_clk, OUTPUT);
   
-  // TODO: implement shiftOut
   if ( _SPI ) {
     SPI.setBitOrder(MSBFIRST);
     SPI.begin();
@@ -37,6 +36,7 @@ void Neo::begin() {
 
   DP = 0;
   RP = 0;
+
   // initialize buffer to 0x00
   for (uint8_t i = 0; i < 8 * (_display_count + 1); i++)
 		buffer[i] = 0;
