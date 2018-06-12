@@ -12,7 +12,7 @@ char string2[] = "i <3 Neo";
 
 void setup() {
   delay(100);
-  disp.init();
+  disp.begin();
   disp.setBrightness(1);
   disp.clearDisplay();
 }

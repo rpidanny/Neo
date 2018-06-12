@@ -24,7 +24,7 @@ void Neo::setBrightness(uint8_t value) {
     transferToAll(MAX7219_REG_INTENSITY, 0x0f);
 }
 
-void Neo::init() {
+void Neo::begin() {
   pinMode(_din, OUTPUT);
   pinMode(_cs, OUTPUT);
   pinMode(_clk, OUTPUT);

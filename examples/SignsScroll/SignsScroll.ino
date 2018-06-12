@@ -9,7 +9,7 @@ byte frame[8];
 
 void setup() {
   delay(100);
-  disp.init();
+  disp.begin();
   disp.setBrightness(0);
   disp.clearDisplay();
 }

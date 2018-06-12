@@ -23,7 +23,7 @@ class Neo {
   public:
     Neo(uint8_t din, uint8_t cs, uint8_t clk, uint8_t displayCount);
         
-    void init();
+    void begin();
     void setBrightness(uint8_t value);
     void displayTest();
     void append(byte frame[8]);

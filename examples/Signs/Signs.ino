@@ -10,7 +10,7 @@ const uint8_t SIGNS_COUNT = sizeof(SIGN)/8;
 
 void setup() {
   delay(100);
-  disp.init();
+  disp.begin();
   disp.setBrightness(0);
   disp.clearDisplay();
 }
