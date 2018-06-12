@@ -79,7 +79,7 @@ nav {
 }
 
 #_grid table tr td:hover, #_grid table tr td.on:hover {
-  background-color: #c3c1ff;
+  background-color: #f7574b;
   padding:10px;
 }
 
