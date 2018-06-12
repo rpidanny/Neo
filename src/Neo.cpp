@@ -124,7 +124,7 @@ void Neo::append(byte frame[8]) {
   DP++;
 }
 
-void Neo::renderDisplay(uint8_t disp, unsigned char frame[8]) {
+void Neo::renderDisplay(uint8_t disp, byte frame[8]) {
   for (uint8_t i = 1; i < 9; i++) {
     transferToDisp(disp, i, frame[i - 1]);
     // buffer[((_display_count - disp - 1) * 8) + i - 1] = frame[i - 1];
