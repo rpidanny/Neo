@@ -14,9 +14,9 @@ function toggle(e) {
   console.log(x, y);
 }
 
-const onLoad = function() {
+const onLoad = function () {
   var grid = document.getElementById('_grid');
-  var table = document.createElement('table'); 
+  var table = document.createElement('table');
   document.getElementById('generateButton').onclick = generateByteArray;
   var rows = 8;
   var cells = 32;
@@ -30,7 +30,7 @@ const onLoad = function() {
       elem.onmousedown = toggle;
       row.appendChild(elem);
     }
-    table.appendChild(row);        
+    table.appendChild(row);
   }
   grid.append(table);
 }
@@ -42,16 +42,16 @@ function generateByteArray() {
 }
 
 function hasClass(element, className) {
-  return (' ' + element.className + ' ').indexOf(' ' + className+ ' ') > -1;
+  return (' ' + element.className + ' ').indexOf(' ' + className + ' ') > -1;
 }
 
 function createArray(length) {
   var arr = new Array(length || 0).fill(0),
-      i = length;
+    i = length;
 
   if (arguments.length > 1) {
-      var args = Array.prototype.slice.call(arguments, 1);
-      while(i--) arr[length-1 - i] = createArray.apply(this, args);
+    var args = Array.prototype.slice.call(arguments, 1);
+    while (i--) arr[length - 1 - i] = createArray.apply(this, args);
   }
 
   return arr;
