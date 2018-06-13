@@ -1,4 +1,8 @@
 language: c
+# Blacklist
+branches:
+  except:
+    - gh-pages
 before_install:
   - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_1.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :1 -ac -screen 0 1280x1024x16"
   - sleep 3
@@ -8,6 +12,8 @@ before_install:
   - sudo mv arduino-1.8.5 /usr/local/share/arduino
   - sudo ln -s /usr/local/share/arduino/arduino /usr/local/bin/arduino
 install:
+  - arduino --pref "boardsmanager.additional.urls=http://arduino.esp8266.com/stable/package_esp8266com_index.json" --save-prefs
+  - arduino --install-boards esp8266:esp8266
   - ln -s $PWD /usr/local/share/arduino/libraries/Neo
 script:
   - arduino --verify --board arduino:avr:uno $PWD/examples/Hello/Hello.ino
