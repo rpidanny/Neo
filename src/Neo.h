@@ -11,6 +11,18 @@
 #define MAX7219_REG_SHUTDOWN    0x0C
 #define MAX7219_REG_DISPLAYTEST 0x0F
 
+/*!
+ * \class Neo
+ * 
+ * \brief Yet Another Matrix Library.
+ * 
+ * Small library to be used with one or more 8x8 Dot Matrix displays.
+ * 
+ * \version 0.0.1
+ * 
+ * \date 2018/06/13
+ * 
+ * */
 class Neo {
   public:
     Neo(uint8_t displayCount, uint8_t cs, uint8_t din = 0, uint8_t clk = 0);
