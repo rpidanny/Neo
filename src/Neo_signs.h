@@ -1,6 +1,5 @@
 #if (defined(__AVR__))
   #include <avr/pgmspace.h>
-  #include <WProgram.h>
 #else
   #include <pgmspace.h>
 #endif
