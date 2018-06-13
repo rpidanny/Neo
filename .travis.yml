@@ -10,11 +10,11 @@ before_install:
 install:
   - ln -s $PWD /usr/local/share/arduino/libraries/Neo
 script:
-  - arduino --verify --board arduino:avr:uno $PWD/Neo/Hello/Hello.ino
-  - arduino --verify --board arduino:avr:uno $PWD/Neo/Invader/Invader.ino
-  - arduino --verify --board arduino:avr:uno $PWD/Neo/MatrixEditor/MatrixEditor.ino
-  - arduino --verify --board arduino:avr:uno $PWD/Neo/Signs/Signs.ino
-  - arduino --verify --board arduino:avr:uno $PWD/Neo/SignsScroll/SignsScroll.ino
+  - arduino --verify --board arduino:avr:uno $PWD/examples/Hello/Hello.ino
+  - arduino --verify --board arduino:avr:uno $PWD/examples/Invader/Invader.ino
+  - arduino --verify --board arduino:avr:uno $PWD/examples/MatrixEditor/MatrixEditor.ino
+  - arduino --verify --board arduino:avr:uno $PWD/examples/Signs/Signs.ino
+  - arduino --verify --board arduino:avr:uno $PWD/examples/SignsScroll/SignsScroll.ino
 notifications:
   email:
     on_success: change
