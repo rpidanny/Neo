@@ -25,8 +25,7 @@ script:
   - arduino --verify --board arduino:avr:uno $PWD/examples/SignsScroll/SignsScroll.ino
   - arduino --verify --board $BD_ESP8266 $PWD/examples/MatrixEditor/MatrixEditor.ino
 after_success:
-  # TODO: replace this with own script
-  - source <(curl -SLs  https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/doxy_gen_and_deploy.sh)
+  - source <(curl -SLs  https://raw.githubusercontent.com/rpidanny/travis-ci-arduino/master/doxy_gen_and_deploy.sh)
 notifications:
   email:
     on_success: change
