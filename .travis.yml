@@ -21,6 +21,8 @@ script:
   - arduino --verify --board arduino:avr:uno $PWD/examples/Signs/Signs.ino
   - arduino --verify --board arduino:avr:uno $PWD/examples/SignsScroll/SignsScroll.ino
   - arduino --verify --board esp8266:esp8266:nodemcuv2:FlashSize=4M3M,CpuFrequency=80 $PWD/examples/MatrixEditor/MatrixEditor.ino
+after_success:
+  - source <(curl -SLs  https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/doxy_gen_and_deploy.sh)
 notifications:
   email:
     on_success: change
