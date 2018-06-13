@@ -3,6 +3,8 @@ language: c
 branches:
   except:
     - gh-pages
+env:
+  - BD_ESP8266=esp8266:esp8266:nodemcuv2:CpuFrequency=80,FlashSize=4M3M
 before_install:
   - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_1.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :1 -ac -screen 0 1280x1024x16"
   - sleep 3
@@ -13,6 +15,7 @@ before_install:
   - sudo ln -s /usr/local/share/arduino/arduino /usr/local/bin/arduino
   - arduino --pref "boardsmanager.additional.urls=http://arduino.esp8266.com/stable/package_esp8266com_index.json" --save-prefs
   - arduino --install-boards esp8266:esp8266
+  - arduino --board $BD --save-prefs
 install:
   - ln -s $PWD /usr/local/share/arduino/libraries/Neo
 script:
@@ -20,7 +23,7 @@ script:
   - arduino --verify --board arduino:avr:uno $PWD/examples/Invader/Invader.ino
   - arduino --verify --board arduino:avr:uno $PWD/examples/Signs/Signs.ino
   - arduino --verify --board arduino:avr:uno $PWD/examples/SignsScroll/SignsScroll.ino
-  - arduino --verify --board esp8266:esp8266:nodemcuv2:FlashSize=4M3M,CpuFrequency=80 $PWD/examples/MatrixEditor/MatrixEditor.ino
+  - arduino --verify --board $BD_ESP8266 $PWD/examples/MatrixEditor/MatrixEditor.ino
 after_success:
   - source <(curl -SLs  https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/doxy_gen_and_deploy.sh)
 notifications:
