@@ -114,6 +114,9 @@ void Neo::transferToAll(uint8_t address, uint8_t value) {
   digitalWrite(_cs, HIGH);    
 }
 
+/**
+ * @brief Turns off all the pixels of the display(s)
+ */
 void Neo::clearDisplay() {
   for (uint8_t j = 1; j < 9; j++) {
     transferToAll(j, 0x00);
@@ -122,6 +125,9 @@ void Neo::clearDisplay() {
 		buffer[i] = 0;
 }
 
+/**
+ * @brief Turns on all the pixels of the display(s)
+ */
 void Neo::fillDisplay() {
   for (uint8_t j = 1; j < 9; j++) {
     transferToAll(j, 0xff);
