@@ -17,12 +17,13 @@ void rootHandler() {
 }
 
 void renderHandler() {
-	if ( !server.hasArg("frame") || server.arg("frame") == NULL) {
-		server.send(400, "text/plain", "400: Invalid Request");
-		return;
-	}
-	Serial.println(server.arg("frame"));
-	server.send(200, "text/html", server.arg("frame"));
+  if ( !server.hasArg("frame") || server.arg("frame") == NULL) {
+    server.send(400, "text/plain", "400: Invalid Request");
+    return;
+  }
+  const char *p = server.arg("frame").c_str();
+  while (*p != 0)  { Serial.print(*p, BIN); p++; }
+  server.send(200, "text/html", server.arg("frame"));
 }
 
 void handleWebRequests(){
@@ -52,20 +53,24 @@ void setup() {
   Serial.println("File System Initialized");
  
   //Initialize AP Mode
-  WiFi.softAP(ssid);  //Password not used
-  IPAddress myIP = WiFi.softAPIP();
+  WiFi.begin(ssid, password);  //Password not used
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  IPAddress myIP = WiFi.localIP();
   Serial.print("Web Server IP:");
   Serial.println(myIP);
  
   //Initialize Webserver
   server.on("/", HTTP_GET, rootHandler);
-	server.on("/render", HTTP_POST, renderHandler);
+  server.on("/render", HTTP_POST, renderHandler);
   server.onNotFound(handleWebRequests);
   server.begin();  
 }
 
 void loop() {
-	server.handleClient();
+  server.handleClient();
 }
 
 bool loadFromSpiffs(String path){

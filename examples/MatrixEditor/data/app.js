@@ -36,10 +36,32 @@ const onLoad = function () {
 }
 
 function generateByteArray() {
+  var xhttp = new XMLHttpRequest();
   const width = matrix[0].length;
   const height = matrix.length;
+  const dispCount = width / 8;
+
+  let results = [];
   console.log(matrix);
   // TODO: convert matrix to byteArray
+  for (var row = 0; row < height; row++) {
+    for (var disp = 0; disp < dispCount; disp++) {
+      let data = 0;
+      for (var col = 0; col < 8; col++) {
+        data += Math.pow(2, (7 - col)) * matrix[row][(disp * 8) + col];
+      }
+      results.push(String.fromCharCode(data));
+    }
+  }
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log(this.responseText);
+    }
+  }
+  xhttp.open("POST", "/render", true);
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhttp.send("frame="+results.join(''));
+  console.log(results.join(''));
 }
 
 function hasClass(element, className) {
