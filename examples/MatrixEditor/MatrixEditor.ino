@@ -2,8 +2,7 @@
 #include <ESP8266WebServer.h>
 #include <FS.h>
  
-const char *ssid = "ssid";
-const char *password = "pw";
+#include "credentials.h"
  
 ESP8266WebServer server(80);
  
