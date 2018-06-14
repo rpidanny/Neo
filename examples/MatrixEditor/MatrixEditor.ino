@@ -1,14 +1,24 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
 #include <FS.h>
- 
+#include <Neo.h>
+
 #include "credentials.h"
  
 ESP8266WebServer server(80);
  
-void handleRoot(){
+void rootHandler() {
   server.sendHeader("Location", "/index.html",true);   //Redirect to our html web page
   server.send(302, "text/plane","");
+}
+
+void renderHandler() {
+	if ( !server.hasArg("frame") || server.arg("frame") == NULL) {
+		server.send(400, "text/plain", "400: Invalid Request");
+		return;
+	}
+	Serial.println(server.arg("frame"));
+	server.send(200, "text/html", server.arg("frame"));
 }
 
 void handleWebRequests(){
@@ -44,7 +54,8 @@ void setup() {
   Serial.println(myIP);
  
   //Initialize Webserver
-  server.on("/",handleRoot);
+  server.on("/", HTTP_GET, rootHandler);
+	server.on("/render", HTTP_POST, renderHandler);
   server.onNotFound(handleWebRequests);
   server.begin();  
 }
