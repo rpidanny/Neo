@@ -43,14 +43,14 @@ function generateByteArray() {
 
   let results = [];
   console.log(matrix);
-  // TODO: convert matrix to byteArray
+  // TODO: finalize frame encoding method
   for (var row = 0; row < height; row++) {
     for (var disp = 0; disp < dispCount; disp++) {
       let data = 0;
       for (var col = 0; col < 8; col++) {
         data += Math.pow(2, (7 - col)) * matrix[row][(disp * 8) + col];
       }
-      results.push(String.fromCharCode(data));
+      results.push(data);
     }
   }
   xhttp.onreadystatechange = function() {
@@ -58,10 +58,10 @@ function generateByteArray() {
       console.log(this.responseText);
     }
   }
+  console.log(results.join(','));
   xhttp.open("POST", "/render", true);
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  xhttp.send("frame="+results.join(''));
-  console.log(results.join(''));
+  xhttp.send("frame=" + results.join(','));
 }
 
 function hasClass(element, className) {

@@ -3,12 +3,13 @@
 */
 
 #include <ESP8266WiFi.h>
+#include <WiFiClient.h>
 #include <ESP8266WebServer.h>
 #include <FS.h>
 #include <Neo.h>
 
 #include "credentials.h"
- 
+
 ESP8266WebServer server(80);
  
 void rootHandler() {
@@ -21,9 +22,12 @@ void renderHandler() {
     server.send(400, "text/plain", "400: Invalid Request");
     return;
   }
-  const char *p = server.arg("frame").c_str();
-  while (*p != 0)  { Serial.print(*p, BIN); p++; }
   server.send(200, "text/html", server.arg("frame"));
+  // Logging received data
+  const char *p = server.arg("frame").c_str();
+  while (*p != 0)  { Serial.print(*p, HEX); p++; }
+
+  //TODO: decode frame data and update display
 }
 
 void handleWebRequests(){
