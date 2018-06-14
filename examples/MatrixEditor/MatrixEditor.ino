@@ -1,10 +1,7 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
-#include <FS.h>   //Include File System Headers
+#include <FS.h>
  
-const char* htmlfile = "/index.html";
- 
-//ESP AP Mode configuration
 const char *ssid = "ssid";
 const char *password = "pw";
  
@@ -16,7 +13,7 @@ void handleRoot(){
 }
 
 void handleWebRequests(){
-  if(loadFromSpiffs(server.uri())) return;
+  if (loadFromSpiffs(server.uri())) return;
   String message = "File Not Detected\n\n";
   message += "URI: ";
   message += server.uri();
@@ -52,11 +49,11 @@ void setup() {
   server.onNotFound(handleWebRequests);
   server.begin();  
 }
- 
+
 void loop() {
 	server.handleClient();
 }
- 
+
 bool loadFromSpiffs(String path){
   String dataType = "text/plain";
   if (path.endsWith("/")) path += "index.htm";
