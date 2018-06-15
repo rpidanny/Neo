@@ -16,6 +16,9 @@ before_install:
   - arduino --pref "boardsmanager.additional.urls=http://arduino.esp8266.com/stable/package_esp8266com_index.json" --save-prefs
   - arduino --install-boards esp8266:esp8266
   - arduino --board $BD_ESP8266 --save-prefs
+  - wget --quiet https://github.com/Links2004/arduinoWebSockets/archive/2.1.0.tar.gz
+  - tar xf 2.1.0.tar.gz
+  - sudo mv arduinoWebSockets-2.1.0 /usr/local/share/arduino/libraries/arduinoWebSockets
 install:
   - ln -s $PWD /usr/local/share/arduino/libraries/Neo
 script:
