@@ -119,5 +119,5 @@ void startServer() {
   server.on("/render", HTTP_POST, renderHandler);
   server.onNotFound(handleWebRequests);
   server.begin();
-  Serial.println('HTTP Server started.');
+  Serial.println("HTTP Server started.");
 }
