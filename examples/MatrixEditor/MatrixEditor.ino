@@ -53,7 +53,7 @@ void webSocketHandler(uint8_t num, WStype_t type, uint8_t * payload, size_t leng
     case WStype_TEXT:
       Serial.printf("[%u] get Text: %s\n", num, payload);
       if (decodeFrame(payload)) {
-        Serial.println('Display Updated');
+        Serial.println("Display Updated");
       }
       break;
   }  
@@ -129,7 +129,7 @@ void startWIFI() {
     delay(250);
     Serial.print(".");
   }
-  Serial.println('\r\n');
+  Serial.println("\r\n");
   IPAddress myIP = WiFi.localIP();
   Serial.print("IP Address: ");
   Serial.println(myIP);
