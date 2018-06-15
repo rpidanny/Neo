@@ -93,6 +93,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:ab9f2285b80acc813b9cef9d5ecb1bb85"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_neo.html#ab9f2285b80acc813b9cef9d5ecb1bb85">renderDisplay</a> (uint8_t disp, byte frame[8])</td></tr>
 <tr class="memdesc:ab9f2285b80acc813b9cef9d5ecb1bb85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders a character frame to a particular display position.  <a href="#ab9f2285b80acc813b9cef9d5ecb1bb85">More...</a><br /></td></tr>
 <tr class="separator:ab9f2285b80acc813b9cef9d5ecb1bb85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a112510a00e27a5379b271f4faf083ccd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_neo.html#a112510a00e27a5379b271f4faf083ccd">renderRow</a> (uint8_t disp, uint8_t row, byte data)</td></tr>
+<tr class="memdesc:a112510a00e27a5379b271f4faf083ccd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders a row of a display.  <a href="#a112510a00e27a5379b271f4faf083ccd">More...</a><br /></td></tr>
+<tr class="separator:a112510a00e27a5379b271f4faf083ccd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2d2fe473a12bdc1a2a581c776abda312"><td class="memItemLeft" align="right" valign="top"><a id="a2d2fe473a12bdc1a2a581c776abda312"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_neo.html#a2d2fe473a12bdc1a2a581c776abda312">clearDisplay</a> ()</td></tr>
 <tr class="memdesc:a2d2fe473a12bdc1a2a581c776abda312"><td class="mdescLeft">&#160;</td><td class="mdescRight">Turns off all the pixels of the display(s) <br /></td></tr>
@@ -251,6 +254,50 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
   <table class="params">
     <tr><td class="paramname">disp</td><td>The position of the display to render the frame. </td></tr>
     <tr><td class="paramname">frame</td><td>byte array of length 8. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a112510a00e27a5379b271f4faf083ccd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a112510a00e27a5379b271f4faf083ccd">&#9670;&nbsp;</a></span>renderRow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Neo::renderRow </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>disp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>row</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">byte&#160;</td>
+          <td class="paramname"><em>data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Renders a row of a display. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">disp</td><td>The position of the display to render. </td></tr>
+    <tr><td class="paramname">row</td><td>The row index (Starts from 1). </td></tr>
+    <tr><td class="paramname">data</td><td>A byte representing the state of the row. </td></tr>
   </table>
   </dd>
 </dl>
