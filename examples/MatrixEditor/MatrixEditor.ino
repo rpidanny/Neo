@@ -5,12 +5,14 @@
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
 #include <ESP8266WebServer.h>
+#include <WebSocketsServer.h>
 #include <FS.h>
 #include <Neo.h>
 
 #include "credentials.h"
 
 ESP8266WebServer server(80);
+WebSocketsServer webSocket(8080);
  
 void rootHandler() {
   server.sendHeader("Location", "/index.html",true);   //Redirect to our html web page
@@ -47,6 +49,22 @@ void handleWebRequests(){
   Serial.println(message);
 }
 
+void webSocketHandler(uint8_t num, WStype_t type, uint8_t * payload, size_t length) {
+  switch (type) {
+    case WStype_DISCONNECTED:
+      Serial.printf("[%u] Disconnected", num);
+      break;
+    case WStype_CONNECTED: {
+      IPAddress ip = webSocket.remoteIP(num);
+      Serial.printf("[%u] Connected from %d.%d.%d.%d url: %s\n", num, ip[0], ip[1], ip[2], ip[3], payload);
+      break;
+    }
+    case WStype_TEXT:
+      Serial.printf("[%u] get Text: %s\n", num, payload);
+      break;
+  }  
+}
+
 void setup() {
   delay(1000);
   Serial.begin(115200);
@@ -54,7 +72,8 @@ void setup() {
 
   startSPIFFS();
   startWIFI();
-  startServer(); 
+  startServer();
+  startWebSocket();
 }
 
 void loop() {
@@ -120,6 +139,12 @@ void startServer() {
   server.onNotFound(handleWebRequests);
   server.begin();
   Serial.println("HTTP Server started.");
+}
+
+void startWebSocket() {
+  webSocket.begin();
+  webSocket.onEvent(webSocketHandler);
+  Serial.println("WebSocket server started");
 }
 
 // Helpers
