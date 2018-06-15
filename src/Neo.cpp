@@ -193,6 +193,9 @@ void Neo::render() {
 
 /**
  * @brief Renders a row of a display.
+ * @param disp The position of the display to render.
+ * @param row The row index (Starts from 1).
+ * @param frame byte array of length 8.
  */
 void Neo::renderRow(uint8_t disp, uint8_t row, byte data) {
   transferToDisp(disp, row, data);
