@@ -23,19 +23,6 @@ void rootHandler() {
   server.send(302, "text/plane","");
 }
 
-void renderHandler() {
-  if ( !server.hasArg("frame") || server.arg("frame") == NULL) {
-    server.send(400, "text/plain", "400: Invalid Request");
-    return;
-  }
-  server.send(200, "text/html", server.arg("frame"));
-  // Logging received data
-  const char *p = server.arg("frame").c_str();
-  while (*p != 0)  { Serial.print(*p, HEX); p++; }
-
-  //TODO: decode frame data and update display
-}
-
 void handleWebRequests(){
   if (loadFromSpiffs(server.uri())) return;
   String message = "File Not Detected\n\n";
@@ -122,7 +109,7 @@ void setupDisplay() {
 
 void startSPIFFS() {
   SPIFFS.begin();                             // Start the SPI Flash File System (SPIFFS)
-  Serial.println("SPIFFS started. Contents:");
+  Serial.println("SPIFFS started.\r\nContents:");
   {
     Dir dir = SPIFFS.openDir("/");
     while (dir.next()) {                      // List the file system contents
@@ -142,6 +129,7 @@ void startWIFI() {
     delay(250);
     Serial.print(".");
   }
+  Serial.println('\r\n');
   IPAddress myIP = WiFi.localIP();
   Serial.print("IP Address: ");
   Serial.println(myIP);
@@ -150,19 +138,17 @@ void startWIFI() {
 
 void startServer() {
   server.on("/", HTTP_GET, rootHandler);
-  server.on("/render", HTTP_POST, renderHandler);
   server.onNotFound(handleWebRequests);
   server.begin();
-  Serial.println("HTTP Server started.");
+  Serial.println("HTTP Server started");
 }
 
 void startWebSocket() {
   webSocket.begin();
   webSocket.onEvent(webSocketHandler);
-//  Serial.println("WebSocket server started");
+  Serial.println("WebSocket Server started");
 }
 
-// Helpers
 String formatBytes(size_t bytes) { // convert sizes in bytes to KB and MB
   if (bytes < 1024) {
     return String(bytes) + "B";
@@ -182,7 +168,7 @@ bool decodeFrame(uint8_t * p) {
         tmp[i] = (char) *p;
         p++;  
       }
-      Serial.println(String(tmp).toInt());
+      // Serial.println(String(tmp).toInt());
       frame[j] = (byte) String(tmp).toInt();
       disp.renderRow((uint8_t)(j % 4), (uint8_t) (j / 4) + 1, frame[j] );
     }
