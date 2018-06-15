@@ -12,7 +12,7 @@
 #include "credentials.h"
 
 ESP8266WebServer server(80);
-WebSocketsServer webSocket(8080);
+WebSocketsServer webSocket(81);
  
 void rootHandler() {
   server.sendHeader("Location", "/index.html",true);   //Redirect to our html web page
@@ -61,6 +61,7 @@ void webSocketHandler(uint8_t num, WStype_t type, uint8_t * payload, size_t leng
     }
     case WStype_TEXT:
       Serial.printf("[%u] get Text: %s\n", num, payload);
+      decodeFrame(payload);
       break;
   }  
 }
@@ -78,6 +79,7 @@ void setup() {
 
 void loop() {
   server.handleClient();
+  webSocket.loop();
 }
 
 bool loadFromSpiffs(String path){
@@ -144,7 +146,7 @@ void startServer() {
 void startWebSocket() {
   webSocket.begin();
   webSocket.onEvent(webSocketHandler);
-  Serial.println("WebSocket server started");
+//  Serial.println("WebSocket server started");
 }
 
 // Helpers
@@ -155,5 +157,22 @@ String formatBytes(size_t bytes) { // convert sizes in bytes to KB and MB
     return String(bytes / 1024.0) + "KB";
   } else if (bytes < (1024 * 1024 * 1024)) {
     return String(bytes / 1024.0 / 1024.0) + "MB";
+  }
+}
+
+void decodeFrame(uint8_t * p) {
+  if (p[0] == '#') {
+    p++;
+    byte frame[32];
+    for (uint8_t j = 0; j < 32; j++) {
+      char tmp[3];
+      for (uint8_t i = 0; i < 3; i++) {
+        tmp[i] = (char) *p;
+        p++;  
+      }
+      Serial.println(String(tmp).toInt());
+      frame[j] = (byte) String(tmp).toInt();
+    }
+    // update frame to Display
   }
 }
