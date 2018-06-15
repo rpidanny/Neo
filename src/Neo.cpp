@@ -176,6 +176,7 @@ void Neo::shiftLeft() {
  * @brief Renders the content of the display buffer to the display.
  */
 void Neo::render() {
+  // TODO: render entire display at once
   for (uint8_t disp =0; disp < _display_count; disp++) {
     for (uint8_t r = 1; r < 9; r++) {
       // transferToDisp(disp, r, buffer[((_display_count - disp - 1) * 8) + r - 1]);
@@ -188,4 +189,11 @@ void Neo::render() {
   } else {
     RP++;
   }
+}
+
+/**
+ * @brief Renders a row of a display.
+ */
+void Neo::renderRow(uint8_t disp, uint8_t row, byte data) {
+  transferToDisp(disp, row, data);
 }

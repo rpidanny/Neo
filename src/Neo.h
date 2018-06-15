@@ -32,6 +32,7 @@ class Neo {
     void displayTest();
     void append(byte frame[8]);
     void renderDisplay(uint8_t disp, byte frame[8]);
+    void renderRow(uint8_t disp, uint8_t row, byte data);
     void clearDisplay();
     void fillDisplay();
     void shiftLeft();

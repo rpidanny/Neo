@@ -13,7 +13,11 @@
 
 ESP8266WebServer server(80);
 WebSocketsServer webSocket(81);
- 
+
+Neo disp(4, D4);
+
+byte frame[32];
+
 void rootHandler() {
   server.sendHeader("Location", "/index.html",true);   //Redirect to our html web page
   server.send(302, "text/plane","");
@@ -61,7 +65,9 @@ void webSocketHandler(uint8_t num, WStype_t type, uint8_t * payload, size_t leng
     }
     case WStype_TEXT:
       Serial.printf("[%u] get Text: %s\n", num, payload);
-      decodeFrame(payload);
+      if (decodeFrame(payload)) {
+        Serial.println('Display Updated');
+      }
       break;
   }  
 }
@@ -71,6 +77,7 @@ void setup() {
   Serial.begin(115200);
   Serial.println("\r\n");
 
+  setupDisplay();
   startSPIFFS();
   startWIFI();
   startServer();
@@ -105,6 +112,12 @@ bool loadFromSpiffs(String path){
  
   dataFile.close();
   return true;
+}
+
+void setupDisplay() {
+  disp.begin();
+  disp.setBrightness(0);
+  disp.clearDisplay();  
 }
 
 void startSPIFFS() {
@@ -160,10 +173,9 @@ String formatBytes(size_t bytes) { // convert sizes in bytes to KB and MB
   }
 }
 
-void decodeFrame(uint8_t * p) {
+bool decodeFrame(uint8_t * p) {
   if (p[0] == '#') {
     p++;
-    byte frame[32];
     for (uint8_t j = 0; j < 32; j++) {
       char tmp[3];
       for (uint8_t i = 0; i < 3; i++) {
@@ -172,7 +184,9 @@ void decodeFrame(uint8_t * p) {
       }
       Serial.println(String(tmp).toInt());
       frame[j] = (byte) String(tmp).toInt();
+      disp.renderRow((uint8_t)(j % 4), (uint8_t) (j / 4) + 1, frame[j] );
     }
-    // update frame to Display
+  return true;
   }
+  return false;
 }
