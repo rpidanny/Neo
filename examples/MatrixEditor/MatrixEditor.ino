@@ -101,7 +101,7 @@ void startSPIFFS() {
 }
 
 void startWIFI() {
-  WiFi.begin(ssid, password);  //Password not used
+  WiFi.begin(ssid, password);
   Serial.print("Connecting to ");
   Serial.println(ssid);
   while (WiFi.status() != WL_CONNECTED) {
@@ -120,4 +120,15 @@ void startServer() {
   server.onNotFound(handleWebRequests);
   server.begin();
   Serial.println("HTTP Server started.");
+}
+
+// Helpers
+String formatBytes(size_t bytes) { // convert sizes in bytes to KB and MB
+  if (bytes < 1024) {
+    return String(bytes) + "B";
+  } else if (bytes < (1024 * 1024)) {
+    return String(bytes / 1024.0) + "KB";
+  } else if (bytes < (1024 * 1024 * 1024)) {
+    return String(bytes / 1024.0 / 1024.0) + "MB";
+  }
 }
