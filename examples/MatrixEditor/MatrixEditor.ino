@@ -50,27 +50,11 @@ void handleWebRequests(){
 void setup() {
   delay(1000);
   Serial.begin(115200);
-  Serial.println();
- 
-  //Initialize File System
-  SPIFFS.begin();
-  Serial.println("File System Initialized");
- 
-  //Initialize AP Mode
-  WiFi.begin(ssid, password);  //Password not used
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-  IPAddress myIP = WiFi.localIP();
-  Serial.print("Web Server IP:");
-  Serial.println(myIP);
- 
-  //Initialize Webserver
-  server.on("/", HTTP_GET, rootHandler);
-  server.on("/render", HTTP_POST, renderHandler);
-  server.onNotFound(handleWebRequests);
-  server.begin();  
+  Serial.println("\r\n");
+
+  startSPIFFS();
+  startWIFI();
+  startServer(); 
 }
 
 void loop() {
@@ -100,4 +84,40 @@ bool loadFromSpiffs(String path){
  
   dataFile.close();
   return true;
+}
+
+void startSPIFFS() {
+  SPIFFS.begin();                             // Start the SPI Flash File System (SPIFFS)
+  Serial.println("SPIFFS started. Contents:");
+  {
+    Dir dir = SPIFFS.openDir("/");
+    while (dir.next()) {                      // List the file system contents
+      String fileName = dir.fileName();
+      size_t fileSize = dir.fileSize();
+      Serial.printf("\tFS File: %s, size: %s\r\n", fileName.c_str(), formatBytes(fileSize).c_str());
+    }
+    Serial.printf("\n");
+  }
+}
+
+void startWIFI() {
+  WiFi.begin(ssid, password);  //Password not used
+  Serial.print("Connecting to ");
+  Serial.println(ssid);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(250);
+    Serial.print(".");
+  }
+  IPAddress myIP = WiFi.localIP();
+  Serial.print("IP Address: ");
+  Serial.println(myIP);
+  Serial.println("\r\n");
+}
+
+void startServer() {
+  server.on("/", HTTP_GET, rootHandler);
+  server.on("/render", HTTP_POST, renderHandler);
+  server.onNotFound(handleWebRequests);
+  server.begin();
+  Serial.println('HTTP Server started.');
 }
