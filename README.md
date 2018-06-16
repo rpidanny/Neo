@@ -2,7 +2,7 @@
 
 Yet Another Matrix Library
 
-<img src="https://2.bp.blogspot.com/-pFMZvSjDVyU/V6yMpX2xHJI/AAAAAAAABmY/5waqVmaoGTMRWszChI9IOz46EJlnhA-5wCLcB/s1600/HTB1BfijLVXXXXcSXVXXq6xXFXXXB.jpg" width="200" />
+<img src="https://raw.githubusercontent.com/rpidanny/assets/master/Neo/MAX7219-Matrix.jpeg" width="300" />
 A Simple Library to interface any Arduino compatable microcontrollers with any MAX72XX based Dot Matrix Display.
 
 ## License
