@@ -18,7 +18,7 @@ A simple library to interface any Arduino compatable microcontrollers with any M
 <img src="https://raw.githubusercontent.com/rpidanny/assets/master/Neo/MatrixEditor.gif" />
 
 ## Online Documentation
-You can find the latest Neo documentation on this [project web page] (https://rpidanny.github.io/Neo/html/annotated.html).
+You can find the latest Neo documentation on this [project web page](https://rpidanny.github.io/Neo/html/annotated.html).
 
 ## License
 
