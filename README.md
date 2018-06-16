@@ -6,13 +6,13 @@ A simple library to interface any Arduino compatable microcontrollers with any M
 ## Examples
 
 * Hello  
-.. <img src="https://raw.githubusercontent.com/rpidanny/assets/master/Neo/Hello.gif" />
+<img src="https://raw.githubusercontent.com/rpidanny/assets/master/Neo/Hello.gif" />
 * Invader  
-.. <img src="https://raw.githubusercontent.com/rpidanny/assets/master/Neo/Invader.gif" />
+<img src="https://raw.githubusercontent.com/rpidanny/assets/master/Neo/Invader.gif" />
 * SingsScroll  
-.. <img src="https://raw.githubusercontent.com/rpidanny/assets/master/Neo/SignsScroll.gif" />
+<img src="https://raw.githubusercontent.com/rpidanny/assets/master/Neo/SignsScroll.gif" />
 * MatrixEditor  
-.. <img src="https://raw.githubusercontent.com/rpidanny/assets/master/Neo/MatrixEditor.gif" />
+<img src="https://raw.githubusercontent.com/rpidanny/assets/master/Neo/MatrixEditor.gif" />
 
 ## License
 
