@@ -41,13 +41,14 @@ void Neo::setBrightness(uint8_t value) {
  * @brief Setups the Pins, SPI and Display
  */
 void Neo::begin() {
-  pinMode(_din, OUTPUT);
   pinMode(_cs, OUTPUT);
-  pinMode(_clk, OUTPUT);
   
   if ( _SPI ) {
     SPI.setBitOrder(MSBFIRST);
     SPI.begin();
+  } else {
+    pinMode(_clk, OUTPUT);
+    pinMode(_din, OUTPUT);
   }
 
   DP = 0;
