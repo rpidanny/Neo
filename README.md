@@ -7,12 +7,18 @@ A simple library to interface any Arduino compatable microcontrollers with any M
 
 * Hello  
 <img src="https://raw.githubusercontent.com/rpidanny/assets/master/Neo/Hello.gif" />
+
 * Invader  
 <img src="https://raw.githubusercontent.com/rpidanny/assets/master/Neo/Invader.gif" />
+
 * SingsScroll  
 <img src="https://raw.githubusercontent.com/rpidanny/assets/master/Neo/SignsScroll.gif" />
+
 * MatrixEditor  
 <img src="https://raw.githubusercontent.com/rpidanny/assets/master/Neo/MatrixEditor.gif" />
+
+## Online Documentation
+You can find the latest Neo documentation on this [project web page] (https://rpidanny.github.io/Neo/html/annotated.html).
 
 ## License
 
