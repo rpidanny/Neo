@@ -5,13 +5,13 @@ A simple library to interface any Arduino compatable microcontrollers with any M
 
 ## Examples
 
-* Hello
+* Hello  
 .. <img src="https://raw.githubusercontent.com/rpidanny/assets/master/Neo/Hello.gif" />
-* Invader
+* Invader  
 .. <img src="https://raw.githubusercontent.com/rpidanny/assets/master/Neo/Invader.gif" />
-* SingsScroll
+* SingsScroll  
 .. <img src="https://raw.githubusercontent.com/rpidanny/assets/master/Neo/SignsScroll.gif" />
-* MatrixEditor
+* MatrixEditor  
 .. <img src="https://raw.githubusercontent.com/rpidanny/assets/master/Neo/MatrixEditor.gif" />
 
 ## License
