@@ -1,6 +1,6 @@
 # Neo [![Build Status](https://travis-ci.org/rpidanny/Neo.svg?branch=develop)](https://travis-ci.org/rpidanny/Neo)
 
-![alt text](<https://raw.githubusercontent.com/rpidanny/assets/master/Neo/MAX7219-Matrix.jpeg> =300x)
+<img src="https://raw.githubusercontent.com/rpidanny/assets/master/Neo/MAX7219-Matrix.jpeg" width="300" />
 
 A simple library to interface any Arduino compatable microcontrollers with any MAX72XX based Dot Matrix Display.
 
